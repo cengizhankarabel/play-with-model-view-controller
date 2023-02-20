@@ -1,7 +1,6 @@
 package com.example.repository;
 
 import com.example.model.Account;
-import com.example.model.Todo;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public interface AccountRepository {
 
     void deleteAccount(int accountId);
 
-    List<Todo> getAllAccount ();
+    List<Account> getAllAccount ();
 
 
 
