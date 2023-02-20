@@ -7,10 +7,21 @@ public class Account {
     private String lastName;
     private String email;
 
+    public Account(int id, String firstName, String lastName, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     public Account (String firstName, String lastName, String email){
         this.firstName=firstName;
         this.lastName=lastName;
         this.email=email;
+    }
+
+    public Account() {
+
     }
 
     public int getId() {
