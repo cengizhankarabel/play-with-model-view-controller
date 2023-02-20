@@ -1,11 +1,15 @@
 package com.example.model;
 
+import java.util.List;
+
 public class Account {
 
     private int id;
     private String firstName;
     private String lastName;
     private String email;
+
+    private List<Todo> todoList;
 
     public Account(int id, String firstName, String lastName, String email) {
         this.id = id;

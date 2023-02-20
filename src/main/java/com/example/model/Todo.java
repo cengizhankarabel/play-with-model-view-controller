@@ -6,9 +6,18 @@ public class Todo {
     private String title;
     private boolean completed;
 
+    public Todo(int id, String title, boolean completed) {
+        this.id = id;
+        this.title = title;
+        this.completed = completed;
+    }
+
     public Todo(String title, boolean completed) {
         this.title = title;
         this.completed = completed;
+    }
+
+    public Todo() {
     }
 
     public int getId() {
