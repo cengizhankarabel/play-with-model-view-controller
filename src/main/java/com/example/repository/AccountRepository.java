@@ -14,7 +14,7 @@ public interface AccountRepository {
 
     void saveAccount(Account account);
 
-    String findMyAccountNumberByEmail(int accountId);
+    Account findMyAccountByEmail(String email);
 
     Account findMyAccount(int accountId);
 
