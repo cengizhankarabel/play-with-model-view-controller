@@ -5,6 +5,7 @@ public class Todo {
     private int id;
     private String title;
     private boolean completed;
+    private Account account;
 
     public Todo(int id, String title, boolean completed) {
         this.id = id;
@@ -42,5 +43,13 @@ public class Todo {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

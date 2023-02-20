@@ -105,7 +105,7 @@ public class JdbcAccountRepository implements AccountRepository{
 
         try{
             connection = DatabaseConnectionFactory.getConnection();
-            String sql = "delete * from accounts where Account_Id=?";
+            String sql = "delete from accounts where Account_Id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, accountId);
             ps.executeQuery();
