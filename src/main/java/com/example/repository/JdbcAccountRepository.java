@@ -15,12 +15,12 @@ public class JdbcAccountRepository implements AccountRepository{
 
         try{
             connection = DatabaseConnectionFactory.getConnection();
-            String sql = "insert into accounts (Account_Id, First_Name, Last_Name, Email_Address) values (id=?, firstName=?, lastName=?, email=?";
+            String sql = "insert into accounts (First_Name, Last_Name, Email_Address, Password) values (?,?,?,?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1,account.getId());
-            ps.setString(2, account.getFirstName());
-            ps.setString(3, account.getLastName());
-            ps.setString(4,account.getEmail());
+            ps.setString(1,account.getFirstName());
+            ps.setString(2, account.getLastName());
+            ps.setString(3, account.getEmail());
+            ps.setString(4,account.getPassword());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,6 +53,7 @@ public class JdbcAccountRepository implements AccountRepository{
                 account.setFirstName(rs.getString("First_Name"));
                 account.setLastName(rs.getString("Last_Name"));
                 account.setEmail(rs.getString("Email_Address"));
+                account.setPassword(rs.getString("Password"));
             }
 
         } catch (SQLException e) {
@@ -79,12 +80,13 @@ public class JdbcAccountRepository implements AccountRepository{
         Connection connection = null;
         try {
             connection = DatabaseConnectionFactory.getConnection();
-            String sql = "update accounts set firstName=?, lastName=?, email=? where id=?";
+            String sql = "update accounts set First_Name=?, Last_Name=?, Email_Address=?, Password=? where id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, account.getFirstName());
             ps.setString(2, account.getLastName());
             ps.setString(3, account.getEmail());
-            ps.setInt(4, account.getId());
+            ps.setString(4,account.getPassword());
+            ps.setInt(5, account.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,6 +141,7 @@ public class JdbcAccountRepository implements AccountRepository{
                         rs.getString("First_Name"),
                         rs.getString("Last_Name"),
                         rs.getString("Email_Address") );
+                        rs.getString("Password");
                 accList.add(account);
             }
 
