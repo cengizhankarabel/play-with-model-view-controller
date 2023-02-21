@@ -2,13 +2,27 @@ package com.example.repository;
 
 import com.example.db.DatabaseConnectionFactory;
 import com.example.model.Account;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+@Repository
 public class JdbcAccountRepository implements AccountRepository{
+
+    @Autowired
+    TodoRepository todoRepository;
+
+
+    static Logger logger= Logger.getLogger("TodoController");
+
+
     @Override
     public void saveAccount(Account account) {
         Connection connection= null;
@@ -101,7 +115,7 @@ public class JdbcAccountRepository implements AccountRepository{
         }
     }
 
-        @Override
+    @Override
     public void deleteAccount(int accountId) {
         Connection connection =null;
 
@@ -127,7 +141,11 @@ public class JdbcAccountRepository implements AccountRepository{
     @Override
     public List<Account> getAllAccount() {
 
-        List<Account> accList =null;
+
+
+        logger.info("invoke get all account");
+
+        List<Account> accList = new ArrayList<>();
         Connection connection =null;
         try{
             connection =DatabaseConnectionFactory.getConnection();
@@ -136,13 +154,17 @@ public class JdbcAccountRepository implements AccountRepository{
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
-                Account account =new Account(
-                        rs.getInt("Account_Id"),
-                        rs.getString("First_Name"),
-                        rs.getString("Last_Name"),
-                        rs.getString("Email_Address") );
-                        rs.getString("Password");
+                Account account =new Account();
+                account.setId(rs.getInt("id"));
+                account.setFirstName(rs.getString("First_Name"));
+                account.setLastName(rs.getString("Last_Name"));
+                account.setEmail(rs.getString("Email_Address"));
+                account.setPassword(rs.getString("Password"));
+
+                account.setTodoList(todoRepository.findAll(account.getId()));
+
                 accList.add(account);
+
             }
 
         } catch (SQLException e) {

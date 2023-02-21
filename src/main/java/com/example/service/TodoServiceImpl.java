@@ -3,17 +3,21 @@ package com.example.service;
 import com.example.model.Account;
 import com.example.model.Todo;
 import com.example.repository.TodoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TodoServiceImpl implements TodoService {
 
-    private TodoRepository todoRepository;
-    private Account account;
+    @Autowired
+    TodoRepository todoRepository;
+    Account account;
 
-    public TodoServiceImpl(TodoRepository todoRepository){
-        this.todoRepository = todoRepository;
-    }
+//    public TodoServiceImpl(TodoRepository todoRepository){
+//        this.todoRepository = todoRepository;
+//    }
 
     @Override
     public void setAccount(Account account) {
