@@ -3,14 +3,18 @@ package com.example.service;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.example.model.Account;
 import com.example.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AccountServiceImpl implements AccountService {
 
-    private AccountRepository accountRepository;
+    @Autowired
+    AccountRepository accountRepository;
 
-    public AccountServiceImpl(AccountRepository accountRepository){
-        this.accountRepository=accountRepository;
-    }
+//    public AccountServiceImpl(AccountRepository accountRepository){
+//        this.accountRepository=accountRepository;
+//    }
 
     @Override
     public void register(Account account) {

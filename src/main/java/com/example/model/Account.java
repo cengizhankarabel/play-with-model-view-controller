@@ -76,4 +76,16 @@ public class Account {
     public void setTodoList(List<Todo> todoList) {
         this.todoList = todoList;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", todoList=" + todoList +
+                '}';
+    }
 }
