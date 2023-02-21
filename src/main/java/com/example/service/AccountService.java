@@ -6,5 +6,5 @@ public interface AccountService {
 
     void register(Account account);
 
-    Account login(String email, String password);
+    Account login(Account account);
 }

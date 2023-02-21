@@ -20,7 +20,7 @@ public class JdbcAccountRepository implements AccountRepository{
     TodoRepository todoRepository;
 
 
-    static Logger logger= Logger.getLogger("TodoController");
+    static Logger logger= Logger.getLogger("JdbcAccountRepository");
 
 
     @Override
@@ -52,22 +52,26 @@ public class JdbcAccountRepository implements AccountRepository{
 
     @Override
     public Account findMyAccountByEmail(String email) {
+
+        logger.info("invoked findMyAccountByEmail methods");
         Connection connection =null;
 
         Account account = new Account();
+        logger.info("temp account created");
 
         try{
             connection = DatabaseConnectionFactory.getConnection();
             String sql= "select * from accounts where Email_Address=?";
             PreparedStatement ps =connection.prepareStatement(sql);
-            ps.setString(1,account.getEmail());
+            ps.setString(1,email);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                account.setId(rs.getInt("Account_Id"));
+                account.setId(rs.getInt("id"));
                 account.setFirstName(rs.getString("First_Name"));
                 account.setLastName(rs.getString("Last_Name"));
                 account.setEmail(rs.getString("Email_Address"));
                 account.setPassword(rs.getString("Password"));
+                logger.info("temp account initialized"+account.getEmail());
             }
 
         } catch (SQLException e) {
@@ -81,12 +85,45 @@ public class JdbcAccountRepository implements AccountRepository{
                 }
             }
         }
+        logger.info("account returning "+account.getFirstName());
         return account;
     }
 
     @Override
     public Account findMyAccount(int accountId) {
-        return null;
+
+        Account account = new Account();
+        Connection connection=null;
+        try{
+            connection=DatabaseConnectionFactory.getConnection();
+            String sql= "select * from accounts where id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1,accountId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()){
+                logger.info("findMyAccount methods invoked-> ");
+                account.setId(rs.getInt("id"));
+                account.setFirstName(rs.getString("First_Name"));
+                account.setLastName(rs.getString("Last_Name"));
+                account.setEmail(rs.getString("Email_Address"));
+                account.setPassword(rs.getString("Password"));
+                logger.info("findMyAccount methods initialized-> "+account.getFirstName());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            if(connection!=null){
+                try{
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        logger.info("returning account "+account.getFirstName());
+        return account;
+
     }
 
     @Override

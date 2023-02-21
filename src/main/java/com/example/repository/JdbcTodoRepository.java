@@ -85,7 +85,7 @@ public class JdbcTodoRepository implements TodoRepository{
 
             while(rs.next()){
                 Todo todo = new Todo();
-                todo.setId(rs.getInt("Id"));
+                todo.setId(rs.getInt("id"));
                 todo.setTitle(rs.getString("Title"));
                 todo.setCompleted(rs.getBoolean("Completed"));
                 todos.add(todo);
